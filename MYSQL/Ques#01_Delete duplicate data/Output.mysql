@@ -1,0 +1,15 @@
+/* 
+Quest # 01: 
+From the given CARS table, delete the records where car details are duplicated 
+*/
+DELETE FROM sql12677111.cars
+WHERE model_id NOT IN (
+    SELECT min_model_id
+    FROM (
+        SELECT MIN(model_id) as min_model_id
+        FROM cars
+        GROUP BY model_name, brand
+    ) AS subquery
+);
+
+

@@ -1,0 +1,17 @@
+/*
+Q2: Display highest and lowest salary 
+select * from employee;
+*/
+--Output--
+SELECT emp_t.*, t2.highest_salary, t2.lowest_salary
+FROM employee emp_t
+JOIN (
+    SELECT 
+        dept,
+        MAX(salary) AS highest_salary,
+        MIN(salary) AS lowest_salary 
+    FROM sql12677111.employee
+    GROUP BY dept 
+) t2 
+ON emp_t.dept = t2.dept
+order by emp_t.dept,emp_t.salary DESC;

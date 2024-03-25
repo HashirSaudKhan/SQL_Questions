@@ -1,0 +1,18 @@
+
+WITH table_2 AS (
+    SELECT
+        cars,
+        days,
+        cumulative_distance,
+        LAG(cumulative_distance, 1, 0) OVER (PARTITION BY cars ORDER BY cars) AS lead_distance
+    FROM
+        sys.car_travels
+)
+
+SELECT
+    cars,
+    days,
+    cumulative_distance,
+    cumulative_distance - lead_distance AS distance_travelled
+FROM
+    table_2;

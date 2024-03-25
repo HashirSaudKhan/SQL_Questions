@@ -1,0 +1,5 @@
+SELECT t.id, t.item_name
+FROM travel_items t
+JOIN  travel_items n 
+ON n.id <= t.total_count
+order by 1; 
