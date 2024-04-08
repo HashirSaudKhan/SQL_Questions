@@ -1,0 +1,55 @@
+with cte as (SELECT 
+customer_id as customer,
+substring(sales_date,4) as Sales_date,
+substring_index(amount,'$',1) as amount
+FROM sales_data),
+final_table as 
+(select customer,
+sum(case when sales_date = 'Jan-2021' then amount else 0 end) as Jan_2021,
+sum(case when sales_date = 'Feb-2021' then amount else 0 end )as Feb_2021 ,
+sum(case when sales_date = 'Mar-2021' then amount else 0 end )as Mar_2021,
+sum(case when sales_date = 'Apr-2021' then amount else 0 end )as Apr_2021,
+sum(case when sales_date = 'May-2021' then amount else 0 end )as May_2021,
+sum(case when sales_date = 'Jun-2021' then amount else 0 end )as Jun_2021,
+sum(case when sales_date = 'Jul-2021' then amount else 0 end )as Jul_2021,
+sum(case when sales_date = 'Aug-2021' then amount else 0 end )as Aug_2021,
+sum(case when sales_date = 'Sep-2021' then amount else 0 end )as Sep_2021,
+sum(case when sales_date = 'Oct-2021' then amount else 0 end )as Oct_2021,
+sum(case when sales_date = 'Nov-2021' then amount else 0 end )as Nov_2021,
+sum(case when sales_date = 'Dec-2021' then amount else 0 end )as Dec_2021,
+sum(amount) as TotaL
+from cte group by customer
+union
+select 'Total' as customer,
+sum(case when sales_date = 'Jan-2021' then amount else 0 end) as Jan_2021,
+sum(case when sales_date = 'Feb-2021' then amount else 0 end )as Feb_2021 ,
+sum(case when sales_date = 'Mar-2021' then amount else 0 end )as Mar_2021,
+sum(case when sales_date = 'Apr-2021' then amount else 0 end )as Apr_2021,
+sum(case when sales_date = 'May-2021' then amount else 0 end )as May_2021,
+sum(case when sales_date = 'Jun-2021' then amount else 0 end )as Jun_2021,
+sum(case when sales_date = 'Jul-2021' then amount else 0 end )as Jul_2021,
+sum(case when sales_date = 'Aug-2021' then amount else 0 end )as Aug_2021,
+sum(case when sales_date = 'Sep-2021' then amount else 0 end )as Sep_2021,
+sum(case when sales_date = 'Oct-2021' then amount else 0 end )as Oct_2021,
+sum(case when sales_date = 'Nov-2021' then amount else 0 end )as Nov_2021,
+sum(case when sales_date = 'Dec-2021' then amount else 0 end )as Dec_2021,
+'' as TotaL
+ from cte)
+ select customer,
+ case when Jan_2021< 0 then concat("(",Jan_2021*-1,")","$") else concat(Jan_2021,"$") end as Jan_2021,
+ case when Feb_2021< 0 then concat("(",Feb_2021*-1,")","$") else concat(Feb_2021,"$") end as feb_2021,
+ case when Mar_2021< 0 then concat("(",Mar_2021*-1,")","$") else concat(Mar_2021,"$") end as Mar_2021,
+ case when Apr_2021< 0 then concat("(",Apr_2021*-1,")","$") else concat(Apr_2021,"$") end as Apr_2021,
+ case when May_2021< 0 then concat("(",May_2021*-1,")","$") else concat(May_2021,"$") end as May_2021,
+ case when Jun_2021< 0 then concat("(",Jan_2021*-1,")","$") else concat(Jun_2021,"$") end as Jun_2021,
+ case when Jul_2021< 0 then concat("(",Jul_2021*-1,")","$") else concat(Jul_2021,"$") end as Jul_2021,
+ case when Aug_2021< 0 then concat("(",Aug_2021*-1,")","$") else concat(Aug_2021,"$") end as Aug_2021,
+ case when Sep_2021< 0 then concat("(",Sep_2021*-1,")","$") else concat(Sep_2021,"$") end as Sep_2021,
+ case when Oct_2021< 0 then concat("(",Oct_2021*-1,")","$") else concat(Oct_2021,"$") end as Oct_2021,
+ case when Nov_2021< 0 then concat("(",Nov_2021*-1,")","$") else concat(Nov_2021,"$") end as Nov_2021,
+ case when Dec_2021< 0 then concat("(",Dec_2021*-1,")","$") else concat(Dec_2021,"$") end as Dec_2021,
+ case when Total = '' then '' else concat(Total,"$") end as Total
+ from final_table;
+ 
+
+ 
